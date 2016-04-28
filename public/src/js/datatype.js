@@ -71,43 +71,103 @@ var loc4 = findCarInLot(fiat1);
 
 // console.log (loc1 + " " + loc2 + " " + loc3 + " " + loc4);
 
-function lieDetectorTest() {
-  var lies = 0;
+// function lieDetectorTest() {
+//   var lies = 0;
 
-  var stolenDiamond = {};
-  if (stolenDiamond) {
-    console.log("You stole the diamond");
-    lies++;
+//   var stolenDiamond = {};
+//   if (stolenDiamond) {
+//     console.log("You stole the diamond");
+//     lies++;
+//   }
+//   var car = {
+//     keysInPocket: null,
+//   };
+//   if (car.keysInPocket) {
+//     console.log("Oh oh, guess you stole the car!");
+//     lies++;
+//   }
+//   if (car.emptyGasTank) {
+//     console.log("You dorve the car after you stole it!");
+//     lies++;
+//   }
+//   var foundYouAtTheCrimeScene = [];
+//   if (foundYouAtTheCrimeScene) {
+//     console.log("A sure sign of guilty!");
+//     lies++;
+//   }
+//   if (foundYouAtTheCrimeScene[0]) {
+//     console.log("Caught with a stolen item!");
+//     lies++;
+//   }
+//   var yourName = " ";
+//   if (yourName) {
+//     console.log("Guess you lied about your name");
+//     lies++;
+//   }
+//   return lies;
+// }
+// var numberOfLies = lieDetectorTest();
+// console.log("You told " + numberOfLies + " lies!");
+// if (numberOfLies >= 3) {
+//   console.log("Guilty as charged!");
+// }
+
+
+// length & charAt
+var input = "jenny@wickedlysmart.com";
+for (var i = 0; i < input.length; i++) {
+  if (input.charAt(i) === "@") {
+    console.log("There's an @ sign at index " + i);
   }
-  var car = {
-    keysInPocket: null,
-  };
-  if (car.keysInPocket) {
-    console.log("Oh oh, guess you stole the car!");
-    lies++;
-  }
-  if (car.emptyGasTank) {
-    console.log("You dorve the car after you stole it!");
-    lies++;
-  }
-  var foundYouAtTheCrimeScene = [];
-  if (foundYouAtTheCrimeScene) {
-    console.log("A sure sign of guilty!");
-    lies++;
-  }
-  if (foundYouAtTheCrimeScene[0]) {
-    console.log("Caught with a stolen item!");
-    lies++;
-  }
-  var yourName = " ";
-  if (yourName) {
-    console.log("Guess you lied about your name");
-    lies++;
-  }
-  return lies;
 }
-var numberOfLies = lieDetectorTest();
-console.log("You told " + numberOfLies + " lies!");
-if (numberOfLies >= 3) {
-  console.log("Guilty as charged!");
+
+// indexOf
+var phrase = "the cat in the hat and the cat is mine";
+var index = phrase.indexOf("cat");
+console.log("there's a cat sitting at index " + index);
+
+index = phrase.indexOf("the", 5);
+console.log("there's a the sitting at index " + index);
+
+var index = phrase.indexOf("dog");
+console.log("there's a dog sitting at index " + index);
+
+index = phrase.lastIndexOf("the");
+console.log("The last the sitting at index " + index);
+
+// substring & split
+var data = "name|phone|address";
+var val = data.substring(5, 10);
+console.log("Substring is " + val);
+val = data.substring(5);
+console.log("Substring now is " + val);
+val = data.split("|");
+console.log("Split array is " + val);
+
+// toLowerCase & toUpperCase
+var uptxt = "UPPER CASE";
+var lowtxt = "lower case";
+var val = uptxt.toLowerCase();
+console.log(val);
+var val = lowtxt.toUpperCase();
+console.log(val);
+
+// slice & replace & concat
+var txt = "This is a string";
+var val = txt.slice(5, 10);
+console.log(val);
+var val = txt.replace("string", "test");
+console.log(val);
+var txt2 = " and others."
+var val = txt.concat(txt2);
+console.log(val);
+
+function Duck(sound) {
+  this.sound = sound;
+  this.quack = function () { console.log(this.sound); }
 }
+
+var toy = new Duck("quack quack");
+toy.quack();
+console.log(typeof toy);
+console.log(toy instanceof Duck);
