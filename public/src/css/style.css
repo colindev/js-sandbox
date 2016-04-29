@@ -14,6 +14,7 @@ div#messageArea {
   top: 0px;
   left: 0px;
   color: rgb(83, 175, 19);
+  font-size: 22px;
 }
 .hit {
   background: url("../img/ship.png") no-repeat center center;
@@ -35,11 +36,15 @@ form {
   position: absolute;
   bottom: 0px;
   right: 0px;
-  padding: 15px;
+  padding: 8px;
   background-color: rgb(83, 175, 19);
+  border: 0;
+  outline: 0;
 }
 form input {
   background-color: rgb(152, 207, 113);
   border-color: rgb(83, 175, 19);
   font-size: 1em;
+  border: 0;
+  outline: 0;
 }
