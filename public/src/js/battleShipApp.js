@@ -15,7 +15,6 @@ var view = {
 };
 
 
-
 // Model
 var model = {
   boardSize: 7,
