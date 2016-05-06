@@ -10,6 +10,7 @@ console.log(myNum);
 
 
 function checkGuess(guessNum) {
+  // check if the number between 1 to maxNum
   if ( guessNum > maxNum ||  guessNum < 1) {
     alert("The number should be 1 ~ " + maxNum);
   } else {
@@ -23,28 +24,26 @@ function checkGuess(guessNum) {
     }
   }
   guessAns.push(guess);
-  return;
 }
 
 function gameProcess(guess) {
   if (guess == myNum) {
     alert("You are right!");
-    guessTimes++;
     return true;
   } else {
     return false;
   }
 }
 
-while (guessTimes <= guessMaxTimes) {
+while (guessTimes < guessMaxTimes) {
   var guess = prompt("Please enter a number between 1 ~ " + maxNum + ".");
   if (!gameProcess(guess)) {
     checkGuess(guess);
   } else {
+    // answer is right jump out
     break;
   }
   if (guessTimes == guessMaxTimes) {
     alert("You've guessed " + guessMaxTimes + " times! The number is " + myNum + "!");
-    break;
   }
 }
