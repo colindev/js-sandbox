@@ -95,6 +95,7 @@ var model = {
     // can't find any hit
     return false;
   },
+
   isSunk: function (ship) {
     for (var i=0; i < this.shipLength; i++) {
       // if there is any hits not hit, return false

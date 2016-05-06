@@ -1,3 +1,25 @@
+div.box {
+  margin: calc(50vh - 100px) auto;
+  text-align: center;
+  width: 400px;
+  height: 200px;
+}
+div#msg {
+  font-size: 16px;
+  font-weight: bold;
+  color: #212121;
+  padding: 12px 0;
+}
+input#numInput {
+  width: 40px;
+  border: 1px solid #E0E0E0;
+  background-color: #F5F5F5;
+  outline: 0;
+  font-size: 30px;
+  text-align: center;
+  color: #424242;
+}
+
 .redtext {
   color: #D50000;
 }
