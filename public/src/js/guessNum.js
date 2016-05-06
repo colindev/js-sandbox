@@ -7,14 +7,13 @@ var guessAns = [];
 console.log(myNum);
 
 function checkGuess(guessNum) {
-  if (guessTimes == 0) {
+  // first guess or hadn't been guessed
+  if (guessTimes == 0 || guessAns.indexOf(guessNum) == -1) {
     alert("Sorry! You are wrong! ");
     guessTimes++;
+  // check if the number had been guessed
   } else if (guessAns.indexOf(guessNum) != -1) {
     alert("Sorry! You've guessed this number'! ");
-  } else {
-    alert("Sorry! You are wrong! ");
-    guessTimes++;
   }
   guessAns.push(guess);
   return;
