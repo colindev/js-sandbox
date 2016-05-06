@@ -8,8 +8,21 @@ console.log(myNum);
 
 while (answer == false) {
   var guess = prompt("Please enter a number between 1 ~ 10.");
+
+  function checkGuessed(guessNum) {
+    if (guessAns.indexOf(guessNum) != -1) {
+        alert("Sorry! You've guessed this number'! ");
+        guessAns.push(guess);
+    } else {
+      alert("Sorry! You are wrong! ");
+      guessTimes++;
+      guessAns.push(guessNum);
+    }
+  }
+
   if (guess == myNum) {
     alert("You are right!");
+    guessAns.push(guess);
     answer = true;
   } else {
     if (guessTimes == 0) {
@@ -17,13 +30,7 @@ while (answer == false) {
       guessTimes++;
       guessAns.push(guess);
     } else {
-      if (guessAns.indexOf(guess) != -1) {
-          alert("Sorry! You've guessed this number'! ");
-      } else {
-        alert("Sorry! You are wrong! ");
-        guessTimes++;
-        guessAns.push(guess);
-      }
+      checkGuessed(guess);
     }
     if (guessTimes >= 3) {
       alert("You've guessed 3 times! The number is " + myNum + "!");
