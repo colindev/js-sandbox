@@ -48,9 +48,10 @@
       var ExampleApplicationFactory = React.createFactory(ExampleApplication);
       // 新增 start 起始值為 時間(豪秒)
       var start = new Date().getTime();
+      // 呼叫 function
       setInterval(function() {
         ReactDOM.render(
-          // 取得時間(毫秒) 塞入 elapsed
+          // 開始計時(毫秒) 塞入 elapsed
           ExampleApplicationFactory({elapsed: new Date().getTime() - start}),
           // 指定放置位置
           document.getElementById('container')
