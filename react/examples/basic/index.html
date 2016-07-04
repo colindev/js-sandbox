@@ -32,6 +32,9 @@
           // 建立 elapsed 四捨五入 / 100 (豪秒/100)
           var elapsed = Math.round(this.props.elapsed  / 100);
           // 建立 seconds = elapsed /10 + /10餘數 (豪秒轉換為秒)
+          // ? '' = if (elapsed % 10) { return ''}
+          // : '.0' = else {return '.0'}
+          // 參考 JS shorthand 寫法
           var seconds = elapsed / 10 + (elapsed % 10 ? '' : '.0' );
           var message =
             'React has been successfully running for ' + seconds + ' seconds.';
@@ -52,6 +55,7 @@
           // 指定放置位置
           document.getElementById('container')
         );
+      // 每 50 豪秒跑一次 (setInterval)
       }, 50);
     </script>
   </body>
