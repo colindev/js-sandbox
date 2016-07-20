@@ -29,7 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
     <script type="text/babel">
       var CSSTransitionGroup = React.addons.CSSTransitionGroup;
-      var INTERVAL = 2000;
+      var INTERVAL = 4000;
 
       var AnimateDemo = React.createClass({
         getInitialState: function() {
@@ -51,7 +51,7 @@
         render: function() {
           var children = [];
           var pos = 0;
-          var colors = ['red', 'gray', 'blue'];
+          var colors = ['red', 'green', 'blue', 'orange'];
           for (var i = this.state.current; i < this.state.current + colors.length; i++) {
             var style = {
               left: pos * 128,
