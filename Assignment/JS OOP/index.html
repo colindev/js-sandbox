@@ -21,7 +21,6 @@
 
       var ballsNum = 30;
       var balls = [];
-      var restBalls = balls;
 
       // create balls
       for (var i = 1; i <= ballsNum; i++) {
@@ -37,25 +36,23 @@
         }
 
         // add ID into DOM
-        var createBallId = document.createAttribute("id");
-        createBallId.nodeValue = "ball-" + i;
-        createBall.setAttributeNode(createBallId);
+        createBall.setAttribute("id", "ball-"+i);
         createBall.appendChild(createBallNum);
         document.getElementById("ballsBox").appendChild(createBall);
       }
 
       drawBtn.onclick = function() {
         // get a random number as index
-        var ballIndex = Math.floor(Math.random() * restBalls.length);
-        var realBall = restBalls[ballIndex];
+        var ballIndex = Math.floor(Math.random() * balls.length);
+        var realBall = balls[ballIndex];
         console.log(ballIndex);
 
         // HTML DOM
-        var drawBall = "ball-" + restBalls[ballIndex];
+        var drawBall = "ball-" + balls[ballIndex];
         document.getElementById(drawBall).classList.add("is-chose");
 
         // remove index[number] from array
-        restBalls.splice((restBalls.indexOf(realBall)), 1);
+        balls.splice((balls.indexOf(realBall)), 1);
       }
 
     </script>
