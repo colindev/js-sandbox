@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <title>JS OOP</title>
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>::Lucky Draw::</h1>
+      <div id="ballsBox" class="ballsBox"></div>
+      <button id="drawBtn" class="btn-draw">Draw!</button>
+    </div>
+
+    <script>
+
+
+      // get HTML DOM
+      var ballsBox = document.getElementById("ballsBox");
+      var drawBtn = document.getElementById("drawBtn");
+
+      var ballsNum = 30;
+      var balls = [];
+      var restBalls = balls;
+
+      // create balls
+      for (var i = 1; i <= ballsNum; i++) {
+        balls.push(i);
+        // create DOM for each ball
+        var createBall = document.createElement("div");
+
+        // DOM add 0 when numver is between 1-9
+        if (i<10) {
+          var createBallNum = document.createTextNode("0" + i);
+        } else {
+          var createBallNum = document.createTextNode(i);
+        }
+
+        // add ID into DOM
+        var createBallId = document.createAttribute("id");
+        createBallId.nodeValue = "ball-" + i;
+        createBall.setAttributeNode(createBallId);
+        createBall.appendChild(createBallNum);
+        document.getElementById("ballsBox").appendChild(createBall);
+      }
+
+      drawBtn.onclick = function() {
+        // get a random number as index
+        var ballIndex = Math.floor(Math.random() * restBalls.length);
+        var realBall = restBalls[ballIndex];
+        console.log(ballIndex);
+
+        // HTML DOM
+        var drawBall = "ball-" + restBalls[ballIndex];
+        document.getElementById(drawBall).classList.add("is-chose");
+
+        // remove index[number] from array
+        restBalls.splice((restBalls.indexOf(realBall)), 1);
+      }
+
+    </script>
+
+  </body>
+</html>
