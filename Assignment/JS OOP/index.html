@@ -8,8 +8,11 @@
   <body>
     <div class="wrapper">
       <h1>::Lucky Draw::</h1>
+      <h2 id="des"></h2>
+      <div id="drewBallsBox" class="drewBallsBox"></div>
       <div id="ballsBox" class="ballsBox"></div>
       <button id="drawBtn" class="btn-draw">Draw!</button>
+      <button id="resetBtn" class="btn-reset">Reset</button>
     </div>
 
     <script>
@@ -18,42 +21,104 @@
       // get HTML DOM
       var ballsBox = document.getElementById("ballsBox");
       var drawBtn = document.getElementById("drawBtn");
+      var resetBtn = document.getElementById("resetBtn");
+      var des = document.getElementById("des");
 
-      var ballsNum = 30;
+      var ballsNum = 50;
+      var drawNum = 7;
       var balls = [];
+      var drawBalls = [];
 
-      // create balls
-      for (var i = 1; i <= ballsNum; i++) {
-        balls.push(i);
-        // create DOM for each ball
-        var createBall = document.createElement("div");
+      // des
+      des.textContent = drawNum + " in " + ballsNum;
 
-        // DOM add 0 when numver is between 1-9
-        if (i<10) {
-          var createBallNum = document.createTextNode("0" + i);
+      // resetBtn
+      if (drawBalls.length == 0) {
+        resetBtn.classList.add("close");
+      }
+
+
+      // create need balls
+      function createBalls(num) {
+        for (var i = 1; i <= num; i++) {
+          balls.push(i);
+          // create DOM for each ball
+          var createBall = document.createElement("div");
+
+          // DOM add 0 when number is between 1-9
+          if (i<10) {
+            var createBallNum = document.createTextNode("0" + i);
+          } else {
+            var createBallNum = document.createTextNode(i);
+          }
+
+          // add ID into DOM
+          createBall.setAttribute("id", "ball-"+i);
+          createBall.appendChild(createBallNum);
+          document.getElementById("ballsBox").appendChild(createBall);
+        }
+      }
+      createBalls(ballsNum);
+
+      // button states change
+      function drawState(btn, state, txt) {
+        if (state == true) {
+          btn.classList.remove("close");
+          btn.textContent = txt;
+          btn.disabled = false;
         } else {
-          var createBallNum = document.createTextNode(i);
+          btn.classList.add("close");
+          btn.textContent = txt;
+          btn.disabled = true;
+        }
+      }
+
+      // get darwNum of balls
+      function drawBall() {
+        for (var i=1; i <= drawNum; i++) {
+          // get a random number as index
+          var ballIndex = Math.floor(Math.random() * balls.length);
+          var realBall = balls[ballIndex];
+          drawBalls.push(realBall);
+          console.log(ballIndex);
+
+          // HTML DOM
+          var drawBall = "ball-" + balls[ballIndex];
+          document.getElementById(drawBall).classList.add("is-chose");
+
+          // remove index[number] from array
+          balls.splice((balls.indexOf(realBall)), 1);
         }
 
-        // add ID into DOM
-        createBall.setAttribute("id", "ball-"+i);
-        createBall.appendChild(createBallNum);
-        document.getElementById("ballsBox").appendChild(createBall);
+        // btn state
+        drawState(drawBtn, false, "No Draw");
+        drawState(resetBtn, true, "Reset");
       }
 
-      drawBtn.onclick = function() {
-        // get a random number as index
-        var ballIndex = Math.floor(Math.random() * balls.length);
-        var realBall = balls[ballIndex];
-        console.log(ballIndex);
+      // reset balls
+      function resetBalls() {
+        // merge balls & drawBalls array
+        balls = balls.concat(drawBalls);
 
-        // HTML DOM
-        var drawBall = "ball-" + balls[ballIndex];
-        document.getElementById(drawBall).classList.add("is-chose");
+        // sort array
+        balls.sort(function(a, b){return a-b});
 
-        // remove index[number] from array
-        balls.splice((balls.indexOf(realBall)), 1);
+        // remove class
+        for (var i = 0; i < drawNum; i++) {
+          var drawBall = "ball-" + drawBalls[i];
+          document.getElementById(drawBall).classList.remove("is-chose");
+        }
+
+        // btn state
+        drawState(drawBtn, true, "Draw");
+        drawState(resetBtn, false, "Reset");
+
+        // clean drawBalls array
+        drawBalls.splice(0, drawNum);
       }
+
+      drawBtn.addEventListener("click", drawBall, false);
+      resetBtn.addEventListener("click", resetBalls, false);
 
     </script>
 
