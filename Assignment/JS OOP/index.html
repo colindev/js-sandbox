@@ -11,7 +11,7 @@
       <h2 id="des"></h2>
       <div id="resultBox" class="resultBox"></div>
       <div id="ballsBox" class="ballsBox"></div>
-      <button id="drawBtn" class="btn-draw">Draw!</button>
+      <button id="drawBtn" class="btn-draw">Draw</button>
       <button id="resetBtn" class="btn-reset">Reset</button>
     </div>
 
@@ -26,15 +26,16 @@
       var resetBtn = document.getElementById("resetBtn");
       var des = document.getElementById("des");
 
-      var ballsNum = 50;
-      var drawNum = 7;
+      var ballsNum = 30;
+      var drawNum = 5;
       var balls = [];
       var ballNodes = {};
       var drawBalls = [];
-      var restNum;
+      var counter = drawBalls.length;
+      var countSec = 0.5;
 
       // des
-      des.innerHTML = drawNum + " in " + ballsNum + ", <span id='restNum'></span> more left";
+      des.innerHTML = drawNum + " in " + ballsNum;
 
       // resetBtn
       if (drawBalls.length == 0) {
@@ -103,16 +104,12 @@
         // add class to drew balls
         drawBall.classList.add("is-chose");
 
-        // change restNum
-        var restNum = document.getElementById("restNum");
-        restNum.textContent = drawNum - drawBalls.length;
-
         // resultBox
         addResult(drawBalls.length - 1);
 
         if (drawBalls.length == drawNum) {
           // btn state
-          drawState(drawBtn, false, "No Draw");
+          drawState(drawBtn, false, "Done");
           drawState(resetBtn, true, "Reset");
         }
       }
@@ -120,12 +117,25 @@
       // add drewBalls into resultBox
       function addResult(drewNum) {
 
-        // get ball numver and build DOM
+        // get ball number and build DOM
         var addBall = drawBalls[drewNum];
-        ball = buildDom("<div>" + addBall.substring(5) + "</div>");
+        addBall = addBall.substring(5);
+
+        ball = buildDom("<div>" + (addBall<10?"0"+addBall:addBall) + "</div>");
 
         // add balls into ballsBox
         resultBox.appendChild(ball);
+      }
+
+      // auto draw
+      function autoDraw() {
+        var i = setInterval(function(){
+          counter++;
+          drawBall();
+          if(counter === drawNum) {
+              clearInterval(i);
+          }
+        }, countSec * 1000);
       }
 
       // reset balls
@@ -147,9 +157,13 @@
 
         // clean drawBalls array
         drawBalls = [];
+        counter = 0;
+
+        // clean resultBox
+        resultBox.innerHTML = "";
       }
 
-      drawBtn.addEventListener("click", drawBall, false);
+      drawBtn.addEventListener("click", autoDraw, false);
       resetBtn.addEventListener("click", resetBalls, false);
 
     </script>

@@ -25,7 +25,19 @@
           li = buildDom("<li>"+(i<10?"0"+i:i)+"</li>");
           box.appendChild(li);
         }
-      })(15)
+      })(3)
+
+      // counting
+      var counter = 0;
+      var countSec = 1;
+      var countTimes = 3;
+      var counting = setInterval(function(){
+          counter++;
+          console.log(counter);
+          if(counter === countTimes) {
+              clearInterval(counting);
+          }
+      }, countSec * 1000);
 
     </script>
 

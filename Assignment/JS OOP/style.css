@@ -55,27 +55,31 @@ button.close {
 #resultBox div,
 #ballsBox div {
   border-radius: 50%;
-  float: left;
   font-weight: bold;
   height: 30px;
   line-height: 30px;
   margin: 6px 6px;
   text-align: center;
   width: 30px;
+  display: inline-block;
+  vertical-align: middle;
 }
 #resultBox div {
   background-color: #E53935;
+  color: #ECEFF1;
 }
 #ballsBox div {
   background-color: #ECEFF1;
 }
+#resultBox div:first-of-type,
+#resultBox div:nth-of-type(10n+1),
 #ballsBox div:first-of-type,
 #ballsBox div:nth-of-type(10n+1) {
   margin-left: 0;
 }
 #ballsBox div.is-chose {
-  background-color: #FFC107;
-  color: #EEE;
+  background-color: #F5F5F5;
+  color: #BDBDBD;
 }
 #ballsBox div:hover {
   cursor: default;
