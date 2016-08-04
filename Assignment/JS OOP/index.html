@@ -11,7 +11,7 @@
       <h2 id="des"></h2>
       <div id="resultBox" class="resultBox"></div>
       <div id="ballsBox" class="ballsBox"></div>
-      <button id="drawBtn" class="btn-draw">Draw</button>
+      <button id="drawBtn" class="btn-draw">Auto Draw</button>
       <button id="resetBtn" class="btn-reset">Reset</button>
     </div>
 
@@ -111,6 +111,8 @@
           // btn state
           drawState(drawBtn, false, "Done");
           drawState(resetBtn, true, "Reset");
+        } else if (drawBalls.length > 0) {
+          drawState(drawBtn, false, "Drawing");
         }
       }
 
@@ -152,7 +154,7 @@
         }
 
         // btn state
-        drawState(drawBtn, true, "Draw");
+        drawState(drawBtn, true, "Auto draw");
         drawState(resetBtn, false, "Reset");
 
         // clean drawBalls array
