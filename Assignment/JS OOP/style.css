@@ -47,8 +47,13 @@ button.close {
   cursor: default;
 }
 
+#resultBox {
+  height: 44px;
+  margin: 12px auto;
+}
+
+#resultBox div,
 #ballsBox div {
-  background-color: #ECEFF1;
   border-radius: 50%;
   float: left;
   font-weight: bold;
@@ -57,6 +62,12 @@ button.close {
   margin: 6px 6px;
   text-align: center;
   width: 30px;
+}
+#resultBox div {
+  background-color: #E53935;
+}
+#ballsBox div {
+  background-color: #ECEFF1;
 }
 #ballsBox div:first-of-type,
 #ballsBox div:nth-of-type(10n+1) {

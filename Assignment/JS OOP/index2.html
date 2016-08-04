@@ -9,7 +9,7 @@
     <div class="wrapper">
       <h1>::Lucky Draw::</h1>
       <h2 id="des"></h2>
-      <div id="resultBox" class="resultBox"></div>
+      <div id="drewBallsBox" class="drewBallsBox"></div>
       <div id="ballsBox" class="ballsBox"></div>
       <button id="drawBtn" class="btn-draw">Draw!</button>
       <button id="resetBtn" class="btn-reset">Reset</button>
@@ -21,7 +21,6 @@
       // get HTML DOM
       var _div = document.createElement("div") // 虛擬 DOM
       var ballsBox = document.getElementById("ballsBox");
-      var resultBox = document.getElementById("resultBox");
       var drawBtn = document.getElementById("drawBtn");
       var resetBtn = document.getElementById("resetBtn");
       var des = document.getElementById("des");
@@ -31,17 +30,16 @@
       var balls = [];
       var ballNodes = {};
       var drawBalls = [];
-      var restNum;
 
       // des
-      des.innerHTML = drawNum + " in " + ballsNum + ", <span id='restNum'></span> more left";
+      des.textContent = drawNum + " in " + ballsNum;
 
       // resetBtn
       if (drawBalls.length == 0) {
         resetBtn.classList.add("close");
       }
 
-      // build DOM
+
       function buildDom(html) {
         // 設定 innerHTML
         _div.innerHTML = html;
@@ -64,7 +62,7 @@
 
           // add balls into {ballNode}
           ballNodes[id] = ball;
-
+          
           // add balls into [balls]
           balls.push(id);
         }
@@ -86,46 +84,28 @@
 
       // get darwNum of balls
       function drawBall() {
-        // get a random number as index
-        var ballIndex = Math.floor(Math.random() * balls.length);
+        for (var i=1; i <= drawNum; i++) {
+          // get a random number as index
+          var ballIndex = Math.floor(Math.random() * balls.length);
 
-        // remove drew balls from [balls]
-        var id = balls.splice(ballIndex, 1)[0];
+          // remove drew balls from [balls]
+          var id = balls.splice(ballIndex, 1)[0];
 
-        // add drew balls into [drawBalls]
-        drawBalls.push(id);
+          // add drew balls into [drawBalls]
+          drawBalls.push(id);
 
-        console.log(id, ballIndex);
+          console.log(id, ballIndex);
 
-        // HTML DOM
-        var drawBall = ballNodes[id];
+          // HTML DOM
+          var drawBall = ballNodes[id];
 
-        // add class to drew balls
-        drawBall.classList.add("is-chose");
-
-        // change restNum
-        var restNum = document.getElementById("restNum");
-        restNum.textContent = drawNum - drawBalls.length;
-
-        // resultBox
-        addResult(drawBalls.length - 1);
-
-        if (drawBalls.length == drawNum) {
-          // btn state
-          drawState(drawBtn, false, "No Draw");
-          drawState(resetBtn, true, "Reset");
+          // add class to drew balls
+          drawBall.classList.add("is-chose");
         }
-      }
 
-      // add drewBalls into resultBox
-      function addResult(drewNum) {
-
-        // get ball numver and build DOM
-        var addBall = drawBalls[drewNum];
-        ball = buildDom("<div>" + addBall.substring(5) + "</div>");
-
-        // add balls into ballsBox
-        resultBox.appendChild(ball);
+        // btn state
+        drawState(drawBtn, false, "No Draw");
+        drawState(resetBtn, true, "Reset");
       }
 
       // reset balls
