@@ -6,12 +6,21 @@
   </head>
   <body>
 
-    <ul id="box"></ul>
+    <div id="resultBox"></div>
 
     <script>
 
+      functuon Test(x) {
+        var a = x;
+        this.show = function(){
+          return a;
+        }
+      }
+      o = new Test("hidden");
+      console.log(o.show());
+
       var _div = document.createElement("div");
-      var box = document.getElementById("box");
+      var resultBox = document.getElementById("resultBox");
 
       // innerHTML function
       function buildDom(html) {
@@ -19,25 +28,48 @@
         return _div.removeChild(_div.firstChild);
       }
 
-      // 立即涵式
-      (function(num){
-        for (var i = 1; i <= num; i++) {
-          li = buildDom("<li>"+(i<10?"0"+i:i)+"</li>");
-          box.appendChild(li);
-        }
-      })(3)
 
-      // counting
-      var counter = 0;
-      var countSec = 1;
-      var countTimes = 3;
-      var counting = setInterval(function(){
-          counter++;
-          console.log(counter);
-          if(counter === countTimes) {
-              clearInterval(counting);
+      var ballsNum = 10;
+      // var drawNum = 3;
+      // var balls = [];
+      var ballNodes = {};
+      // var drawBalls = [];
+
+
+      // obj
+      function Balls() {
+        // var collect = {};
+
+        // add ball
+        this.add = function(num){
+          for (var i = 1; i <= num; i++) {
+            // collect[i] = true;
+            var id = "ball-"+i;
+            var ball = buildDom("<div id='" + i + "'>" + (i<10?"0"+i:i) + "</div>");
+            ballNodes[id] = ball;
+            resultBox.appendChild(ball);
           }
-      }, countSec * 1000);
+        };
+
+        // del ball
+        this.del = function(num){
+          // delete(collect[num]);
+        };
+
+        // show
+        // this.show = function(){
+        //   for (var n in collect) {
+        //     console.log(n);
+        //   }
+        // };
+      }
+
+      var b = new Balls();
+      (function(num){
+        b.add(num);
+      })(ballsNum)
+
+      console.log(ballNodes);
 
     </script>
 

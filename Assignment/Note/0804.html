@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <title>JS Note</title>
+  </head>
+  <body>
+
+    <ul id="box"></ul>
+    <div id="resultBox"></div>
+
+    <script>
+
+      var _div = document.createElement("div");
+      var box = document.getElementById("box");
+
+      // innerHTML function
+      function buildDom(html) {
+        _div.innerHTML = html;
+        return _div.removeChild(_div.firstChild);
+      }
+
+      // 立即涵式
+      (function(num){
+        for (var i = 1; i <= num; i++) {
+          li = buildDom("<li>"+(i<10?"0"+i:i)+"</li>");
+          box.appendChild(li);
+        }
+      })(3)
+
+      // counting
+      var counter = 0;
+      var countSec = 1;
+      var countTimes = 3;
+      var counting = setInterval(function(){
+          counter++;
+          // console.log(counter);
+          if(counter === countTimes) {
+              clearInterval(counting);
+          }
+      }, countSec * 1000);
+
+
+
+    </script>
+
+  </body>
+</html>
