@@ -26,13 +26,13 @@
       var resetBtn = document.getElementById("resetBtn");
       var des = document.getElementById("des");
 
-      var ballsNum = 30;
-      var drawNum = 5;
+      var ballsNum = 50;
+      var drawNum = 7;
       var balls = [];
       var ballNodes = {};
       var drawBalls = [];
       var counter = drawBalls.length;
-      var countSec = 0.5;
+      var countSec = 0.65;
 
       // des
       des.innerHTML = drawNum + " in " + ballsNum;
@@ -107,10 +107,13 @@
         // resultBox
         addResult(drawBalls.length - 1);
 
+        // end drawing
         if (drawBalls.length == drawNum) {
           // btn state
           drawState(drawBtn, false, "Done");
           drawState(resetBtn, true, "Reset");
+          // ballsBox is-close
+          ballsBox.classList.add("is-close");
         } else if (drawBalls.length > 0) {
           drawState(drawBtn, false, "Drawing");
         }
@@ -157,6 +160,9 @@
         drawState(drawBtn, true, "Auto draw");
         drawState(resetBtn, false, "Reset");
 
+        // ballBox is-close remove
+        ballsBox.classList.remove("is-close");
+
         // clean drawBalls array
         drawBalls = [];
         counter = 0;
@@ -164,6 +170,7 @@
         // clean resultBox
         resultBox.innerHTML = "";
       }
+
 
       drawBtn.addEventListener("click", autoDraw, false);
       resetBtn.addEventListener("click", resetBalls, false);

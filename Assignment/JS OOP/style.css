@@ -64,23 +64,52 @@ button.close {
   display: inline-block;
   vertical-align: middle;
 }
+
+@keyframes ani-draw {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 #resultBox div {
   background-color: #E53935;
   color: #ECEFF1;
+  opacity: 1;
+  animation: ani-draw 0.5s linear;
 }
+
 #ballsBox div {
   background-color: #ECEFF1;
 }
+
 #resultBox div:first-of-type,
 #resultBox div:nth-of-type(10n+1),
 #ballsBox div:first-of-type,
 #ballsBox div:nth-of-type(10n+1) {
   margin-left: 0;
 }
+
 #ballsBox div.is-chose {
   background-color: #F5F5F5;
   color: #BDBDBD;
 }
 #ballsBox div:hover {
+  cursor: pointer;
+  background-color: #9E9E9E;
+}
+#ballsBox div.is-chose:hover {
   cursor: default;
+  background-color: #F5F5F5;
+}
+
+#ballsBox.is-close div {
+  background-color: #F5F5F5;
+  color: #BDBDBD;
+  cursor: default;
+}
+#ballsBox.is-close div.is-chose {
+  color: #757575;
 }
