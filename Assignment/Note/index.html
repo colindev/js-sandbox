@@ -10,14 +10,6 @@
 
     <script>
 
-      functuon Test(x) {
-        var a = x;
-        this.show = function(){
-          return a;
-        }
-      }
-      o = new Test("hidden");
-      console.log(o.show());
 
       var _div = document.createElement("div");
       var resultBox = document.getElementById("resultBox");
@@ -30,10 +22,10 @@
 
 
       var ballsNum = 10;
-      // var drawNum = 3;
-      // var balls = [];
+      var drawNum = 3;
+      var balls = [];
       var ballNodes = {};
-      // var drawBalls = [];
+      var drawBalls = [];
 
 
       // obj
@@ -43,17 +35,38 @@
         // add ball
         this.add = function(num){
           for (var i = 1; i <= num; i++) {
-            // collect[i] = true;
             var id = "ball-"+i;
-            var ball = buildDom("<div id='" + i + "'>" + (i<10?"0"+i:i) + "</div>");
+            var ball = buildDom("<div id='" + id + "'>" + (i<10?"0"+i:i) + "</div>");
             ballNodes[id] = ball;
             resultBox.appendChild(ball);
+            balls.push(id);
           }
+        };
+
+        // draw ball
+        this.draw = function(num){
+          // get a random number as index
+          var ballIndex = Math.floor(Math.random() * balls.length);
+
+          // remove drew balls from [balls]
+          var id = balls.splice(ballIndex, 1)[0];
+
+          // add drew balls into [drawBalls]
+          drawBalls.push(id);
+
+          console.log(id, ballIndex);
+
+          // HTML DOM
+          var drawBall = ballNodes[id];
+
+          // add class to drew balls
+          drawBall.classList.add("is-chose");
         };
 
         // del ball
         this.del = function(num){
           // delete(collect[num]);
+
         };
 
         // show
@@ -69,6 +82,9 @@
         b.add(num);
       })(ballsNum)
 
+      console.log(ballNodes);
+      b.draw(drawNum);
+      console.log(balls);
       console.log(ballNodes);
 
     </script>
