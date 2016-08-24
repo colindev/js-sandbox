@@ -18,28 +18,18 @@
 
     <script>
 
-
-      // get HTML DOM
-      var _div = document.createElement("div") // 虛擬 DOM
-
       var $ballsBox = $("#ballsBox");
       var $resultBox = $("#resultBox");
       var $drawBtn = $("#drawBtn");
       var $resetBtn = $("#resetBtn");
 
-      var ballsNum = 10;
+      var ballsNum = 30;
       var drawNum = 5;
       var balls = [];
       var drawBalls = [];
 
       // 說明列 （幾選幾）
       $("#des").html(drawNum + ' in ' + ballsNum);
-
-      // build DOM
-      function buildDom(html) {
-        _div.innerHTML = html;
-        return _div.removeChild(_div.firstChild);
-      }
 
       // button states change
       function drawState(btn, state, txt) {
@@ -64,9 +54,7 @@
           for (var i = 1; i <= num; i++) {
             var id = "ball-"+i;
             var $ball = $('<div id="' + id + '">' + (i<10?"0"+i:i) + '</div>');
-            // var ball = buildDom("<div id='" + id + "'>" + (i<10?"0"+i:i) + "</div>");
             ballNodes[id] = $ball;
-            console.log($ball);
             $ballsBox.append($ball);
             balls.push(id);
           }
@@ -143,6 +131,7 @@
           }
         }, countSec * 1000);
       }
+
       // reset
       function resetDraw() {
         Drawing.reset()
