@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <title>Tetris</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="jquery-3.1.0.min.js"></script>
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <h1>Tetris</h1>
+      <div class="canvas" id="canvas">
+      </div>
+      <div class="btn left" id="btn-left"></div>
+      <div class="btn right" id="btn-right"></div>
+    </div>
+
+    <script>
+
+
+      var blocks = {};        // 方塊們
+      var rows = 3;           // 列數
+      var cols = 3;           // 行數
+      var blockSize = 100;     // 方塊尺寸 px
+      var blockNum = 0;       // 現有方塊數
+
+      var $canvas = $("#canvas").css({
+        'width': cols * blockSize + 'px',
+        'height': rows * blockSize + 'px'
+      });
+      var $currentBlock = $("#is-active");
+
+      // Tetris
+      function Tetris(rows, cols) {
+        var blockPosition;      // 方塊位置
+        var currentBlock;       // 進行中方塊
+      }
+
+      Tetris.prototype = {
+        run: function(){
+          blockPosition = Math.floor(Math.random() * cols + 1);
+          var id = "block-" + blockNum + 1;
+          blocks[id] = blockPosition;
+          currentBlock = id;
+        },
+        moveRight: function(){
+          blockPosition = (blockPosition > (cols - 1) ? blockPosition + 0 : blockPosition + 1);
+          blocks[currentBlock] = blockPosition;
+          console.log("right, new position ", blockPosition);
+          console.log(blocks);
+        },
+        moveLeft: function(){
+          blockPosition = (blockPosition == 1 ? blockPosition - 0 : blockPosition - 1);
+          blocks[currentBlock] = blockPosition;
+          console.log("left, new position ", blockPosition);
+          console.log(blocks);
+        },
+      };
+
+      var tetris = new Tetris(rows, cols);
+      tetris.run();
+      console.log(blocks);
+
+      $('#btn-right').on('click', tetris.moveRight);
+      $('#btn-left').on('click', tetris.moveLeft);
+
+    </script>
+
+  </body>
+</html>
