@@ -6,7 +6,7 @@ body {
 
 .wrapper {
   margin: calc(50vh - 265px) auto 0;
-  width: 500px;
+  width: 800px;
   height: 530px;
   text-align: center;
 }
@@ -16,7 +16,9 @@ body {
   height: 300px;
   text-align: center;
   background-color: #F5F5F5;
-  margin: 0 auto
+  margin: 0 auto;
+  position: relative;
+  padding: 0 2px 2px 0;
 }
 
 h1 {
@@ -34,8 +36,16 @@ h2 {
 .block {
   width: 50px;
   height: 50px;
-  background-color: #BDBDBD;
-  border-radius: 4px;
+  background-color: #795548;
+  border-radius: 8px;
+  position: absolute;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid #F5F5F5;
+  margin: 2px 0 0 2px;
+}
+.block.is-locked {
+  background-color: #A1887F;
 }
 
 .btn {
