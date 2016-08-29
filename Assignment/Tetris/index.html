@@ -26,12 +26,13 @@
       var speed = 1;               // 速度 sec
 
       var blocksNode = {};         // 方塊們
+      var blocks = [];             // 方塊位置
       var canvasBlocked = [];      // 已佔位
 
       // 依照行列數重畫盤面
       var $canvas = $("#canvas").css({
-        'width': cols * blockSize + 2 + 'px',
-        'height': rows * blockSize + 2 + 'px'
+        'width': cols * blockSize + 'px',
+        'height': rows * blockSize + 'px'
       });
 
 
@@ -52,20 +53,34 @@
       });
 
 
-      // 變更 block 位置
-      function relocate (blockID, direction, blockXY) {
-        var blockID = "#" + blockID;
-        // 調整 X 軸位置
-        if (direction == "X") {
-          $block = $(blockID).css({
-            'left': blockSize * (blockXY - 1) + 'px'
-          });
-        // 調整 Y 軸位置
-        } else if (direction == "Y") {
-          $block = $(blockID).css({
-            'top': blockSize * blockXY + 'px'
-          });
+      // 變更方塊 X 軸位置
+      function relocateX (blockID, direction, blockX, blockY) {
+        // 判斷是否超過邊界
+        if (blockX == 1 || blockX == cols) {
+          blockX = blockX;
+        } else {
+          if (direction == "L") {
+            blockX = blockX - 1;
+          } else if (direction == "R") {
+            blockX = blockX + 1;
+          }
         }
+        var divID = "#" + blockID;
+        $block = $(divID).css({
+          'left': blockSize * (blockX - 1) + 'px'
+        });
+        tetris.record(blockID, blockX, blockY);
+        console.log(blockID + ": " + blockX + ", " + blockY);
+      }
+
+      // 變更方塊 Y 軸位置
+      function relocateY (blockID, blockX, blockY) {
+        var divID = "#" + blockID;
+        $block = $(divID).css({
+          'top': blockSize * blockY + 'px'
+        });
+        blockY++;
+        tetris.record(blockID, blockX, blockY);
       }
 
       // 鎖住block
@@ -74,6 +89,7 @@
         $block = $(blockID).addClass("is-locked");
         console.log(blockID + " is locked");
       }
+
 
       // Tetris
       function Tetris(rows, cols) {
@@ -96,78 +112,86 @@
           var $block = $('<div id="' + id + '" class="block"></div>');
           $canvas.append($block);
 
-          // 變更 X 軸位置
-          relocate(id, "X", blockX);
+          // Y 軸預設為 1
+          blockY = 1;
 
           // 存入 blocksNode
           blocksNode[id] = $block;
+          console.log(blocksNode);
+
+          // 改變 DOM 位置
+          $block.css({
+            'left': blockSize * (blockX - 1) + 'px'
+          });
 
           // 調整 currentBlock ID
           currentBlock = id;
-
-          // Y 軸預設為 1
-          blockY = 1;
-          console.log(blockY + ", " + blockX);
+          // console.log(blockY + ", " + blockX);
 
           this.run(currentBlock, blockX, blockY);
         },
         run: function(currentBlock, blockX, blockY){
           // 方塊下降
           var i = setInterval(function(){
-            relocate(currentBlock, "Y", blockY);
-            blockY++;
+            // 判斷下降是否佔位
+            tetris.check(currentBlock, blockX, blockY, i);
 
-            // 至底停止下降
+            // 下降
+            relocateY(currentBlock, blockX, blockY);
+            blockY++;
+            // console.log("current " + ": " + blockX + ", " + blockY);
+
+            // 到底停止下降
             if(blockY === rows) {
               clearInterval(i);
-              console.log(blockY + ", " + blockX);
-              tetris.stop(currentBlock, blockY, blockX);
-            } else {
-              // 判斷是否已被佔位
-              for (var j = 0; j < canvasBlocked.length; j++) {
-                // 取得已佔位位置
-                var X = canvasBlocked[j] % cols;
-                var Y = (canvasBlocked[j] - X) / rows + 1;
-                if (blockY + 1 == Y && blockX == X) {
-                  tetris.stop(currentBlock, blockY, blockX);
-                  clearInterval(i);
-                  return;
-                }
-              }
+              tetris.stop(currentBlock, blockX, blockY);
             }
           }, speed * 1000);
         },
-        stop: function(currentBlock, blockY, blockX){
+        check: function (currentBlock, blockX, blockY, i) {
+          // 取得下個位置
+          var nextBlockXY = (blockY + 1) * cols + blockX;
+
+          // 若下個位置已被佔位則停止
+          for (var j = 0; j < canvasBlocked.length; j++) {
+            if (canvasBlocked[j] == nextBlockXY) {
+              tetris.stop(currentBlock, blockX, blockY);
+              clearInterval(i);
+              return;
+            }
+          }
+        },
+        record: function (currentBlock, blockX, blockY) {
+          var currentPosition;
+          (blockY == 1 ? currentPosition = blockX : currentPosition = (blockY - 1) * cols + blockX);
+
+          // 存入 node
+          blocksNode[currentBlock].position = currentPosition;
+          console.log("current " + currentPosition + ": " + blockX + ", " + blockY);
+        },
+        stop: function(currentBlock, blockX, blockY){
           // 增加 is-locked 樣式
           lock(currentBlock, blockY);
 
           // 記錄最終 XY 位置
+          blockY = (blockY > (cols - 1) ? blockY + 0 : blockY + 1)
           finalXY = (blockY - 1) * cols + blockX;
-          console.log("blockY: " + blockY + " blockX:" + blockX + " XY:" + finalXY);
+          this.record(currentBlock, blockX, blockY);
           canvasBlocked.push(finalXY);
+
+          // 新增下一個方塊
           // this.add();
         },
         moveRight: function(){
-          // 判斷是否已觸邊界
-          blockX = (blockX > (cols - 1) ? blockX + 0 : blockX + 1);
-
           // 調整位置
-          blocksNode[currentBlock] = blockX;
-          relocate(currentBlock, "X", blockX);
-
-          console.log("right, new position ", blockX);
+          relocateX(currentBlock, "R", blockX, blockY);
+          console.log("right, new X ", blockX);
           console.log(blocksNode);
         },
         moveLeft: function(){
-
-          // 判斷是否已觸邊界
-          blockX = (blockX == 1 ? blockX - 0 : blockX - 1);
-          blocksNode[currentBlock] = blockX;
-
           // 調整位置
-          relocate(currentBlock, "X", blockX);
-
-          console.log("left, new position ", blockX);
+          relocateX(currentBlock, "L", blockX, blockY);
+          console.log("left, new Y ", blockX);
           console.log(blocksNode);
         },
       };
