@@ -1,0 +1,134 @@
+//compileCompressed: style.css
+
+$list-hight: 50px
+
+body
+  font-family: Arial
+  font-size: 16px
+  color: #424242
+
+button
+  cursor: pointer
+
+input,
+input:focus,
+button,
+button:active
+  border: 0
+  outline: 0
+
+.wrapper
+  margin: calc(50vh - 265px) auto 0
+  width: 500px
+  height: 530px
+  text-align: center
+
+.main
+  width: 500px
+  height: 400px
+  background-color: #fafafa
+
+.add
+  width: 500px
+  height: $list-hight
+  background-color: rgba(255,255,255,.3)
+  position: relative
+  &::before
+    content: '+'
+    display: inline-block
+    position: absolute
+    color: #BDBDBD
+    font-size: 40px
+    line-height: $list-hight
+    width: $list-hight
+    height: $list-hight
+    top: 0
+    left: 0
+    background-color: #F5F5F5
+
+.input-add
+  width: 400px
+  height: $list-hight
+  background-color: transparent
+  margin: 0
+  padding: 0 8px
+  box-sizing: border-box
+  position: absolute
+  top: 0
+  right: $list-hight
+  font-size: 20px
+
+.btn-add
+  width: 50px
+  height: 50px
+  background-color: #F5F5F5
+  margin: 0
+  position: absolute
+  top: 0
+  right: 0
+  font-size: 16px
+  color: #BDBDBD
+  &:hover,
+  .input-add:focus ~ &
+    color: #9E9E9E
+    background-color: #EEEEEE
+
+.todoItem
+  width: 450px
+  height: $list-hight
+  text-align: left
+  position: relative
+  &::before
+    content: '•'
+    display: inline-block
+    position: absolute
+    color: #BDBDBD
+    font-size: 40px
+    line-height: $list-hight
+    width: $list-hight
+    height: $list-hight
+    top: 0
+    left: 0
+    text-align: center
+  &.red::before
+    color: #F44336
+  &.green::before
+    color: #8BC34A
+  &.blue::before
+    color: #2196F3
+  & span
+    text-align: left
+    position: absolute
+    left: $list-hight
+    line-height: $list-hight
+
+.tags
+  width: 500px
+  height: 100px
+  padding: 10px
+  text-align: center
+  & span
+    padding: 4px 16px
+    font-size: 13px
+    line-height: 18px
+    margin-right: 6px
+    height: 18px
+    display: inline-block
+    background-color: #E0E0E0
+    color: #424242
+    border-radius: 15px
+    &.red
+      background-color: #F44336
+      color: #fff
+    &.green
+      background-color: #8BC34A
+      color: #fff
+    &.blue
+      background-color: #2196F3
+      color: #fff
+
+h1
+  font-size: 26px
+  height: 30px
+  line-height: 30px
+  text-align: center

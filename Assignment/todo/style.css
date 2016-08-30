@@ -1,0 +1,132 @@
+@charset "UTF-8";
+body {
+  font-family: Arial;
+  font-size: 16px;
+  color: #424242; }
+
+button {
+  cursor: pointer; }
+
+input,
+input:focus,
+button,
+button:active {
+  border: 0;
+  outline: 0; }
+
+.wrapper {
+  margin: calc(50vh - 265px) auto 0;
+  width: 500px;
+  height: 530px;
+  text-align: center; }
+
+.main {
+  width: 500px;
+  height: 400px;
+  background-color: #fafafa; }
+
+.add {
+  width: 500px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.3);
+  position: relative; }
+  .add::before {
+    content: '+';
+    display: inline-block;
+    position: absolute;
+    color: #BDBDBD;
+    font-size: 40px;
+    line-height: 50px;
+    width: 50px;
+    height: 50px;
+    top: 0;
+    left: 0;
+    background-color: #F5F5F5; }
+
+.input-add {
+  width: 400px;
+  height: 50px;
+  background-color: transparent;
+  margin: 0;
+  padding: 0 8px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  right: 50px;
+  font-size: 20px; }
+
+.btn-add {
+  width: 50px;
+  height: 50px;
+  background-color: #F5F5F5;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 16px;
+  color: #BDBDBD; }
+  .btn-add:hover,
+  .input-add:focus ~ .btn-add {
+    color: #9E9E9E;
+    background-color: #EEEEEE; }
+
+.todoItem {
+  width: 450px;
+  height: 50px;
+  text-align: left;
+  position: relative; }
+  .todoItem::before {
+    content: '•';
+    display: inline-block;
+    position: absolute;
+    color: #BDBDBD;
+    font-size: 40px;
+    line-height: 50px;
+    width: 50px;
+    height: 50px;
+    top: 0;
+    left: 0;
+    text-align: center; }
+  .todoItem.red::before {
+    color: #F44336; }
+  .todoItem.green::before {
+    color: #8BC34A; }
+  .todoItem.blue::before {
+    color: #2196F3; }
+  .todoItem span {
+    text-align: left;
+    position: absolute;
+    left: 50px;
+    line-height: 50px; }
+
+.tags {
+  width: 500px;
+  height: 100px;
+  padding: 10px;
+  text-align: center; }
+  .tags span {
+    padding: 4px 16px;
+    font-size: 13px;
+    line-height: 18px;
+    margin-right: 6px;
+    height: 18px;
+    display: inline-block;
+    background-color: #E0E0E0;
+    color: #424242;
+    border-radius: 15px; }
+    .tags span.red {
+      background-color: #F44336;
+      color: #fff; }
+    .tags span.green {
+      background-color: #8BC34A;
+      color: #fff; }
+    .tags span.blue {
+      background-color: #2196F3;
+      color: #fff; }
+
+h1 {
+  font-size: 26px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center; }
+
