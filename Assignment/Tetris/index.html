@@ -23,7 +23,7 @@
       var cols = 5;                // 行數
       var blockSize = 50;          // 方塊尺寸 px
       var blockNum = 0;            // 現有方塊數
-      var speed = 1;               // 速度 sec
+      var speed = 1.3;               // 速度 sec
 
       var blocksNode = {};         // 方塊們
       var blocks = [];             // 方塊位置
@@ -37,20 +37,20 @@
 
 
       // 鍵盤控制 keydown
-      $(document).keydown(function(e){
-        switch (e.which){
-        // left
-        case 37:
-          tetris.moveLeft;
-          console.log("left");
-          break;
-        // right
-        case 39:
-          tetris.moveRight;
-          console.log("right");
-          break;
-        }
-      });
+      // $(document).keydown(function(e){
+      //   switch (e.which){
+      //   // left
+      //   case 37:
+      //     tetris.moveLeft;
+      //     console.log("left");
+      //     break;
+      //   // right
+      //   case 39:
+      //     tetris.moveRight;
+      //     console.log("right");
+      //     break;
+      //   }
+      // });
 
 
       // 變更方塊 X 軸位置
@@ -70,7 +70,6 @@
           'left': blockSize * (blockX - 1) + 'px'
         });
         tetris.record(blockID, blockX, blockY);
-        console.log(blockID + ": " + blockX + ", " + blockY);
       }
 
       // 變更方塊 Y 軸位置
@@ -100,6 +99,7 @@
       }
 
       Tetris.prototype = {
+        // 新增方塊
         add: function(){
           // 亂數控制方塊 X 位置
           blockX = Math.floor(Math.random() * cols + 1);
@@ -130,8 +130,8 @@
 
           this.run(currentBlock, blockX, blockY);
         },
+        // 下降
         run: function(currentBlock, blockX, blockY){
-          // 方塊下降
           var i = setInterval(function(){
             // 判斷下降是否佔位
             tetris.check(currentBlock, blockX, blockY, i);
@@ -139,15 +139,16 @@
             // 下降
             relocateY(currentBlock, blockX, blockY);
             blockY++;
-            // console.log("current " + ": " + blockX + ", " + blockY);
 
             // 到底停止下降
             if(blockY === rows) {
               clearInterval(i);
               tetris.stop(currentBlock, blockX, blockY);
             }
+          // 下降速度
           }, speed * 1000);
         },
+        // 檢查是否被佔位
         check: function (currentBlock, blockX, blockY, i) {
           // 取得下個位置
           var nextBlockXY = (blockY + 1) * cols + blockX;
@@ -161,14 +162,18 @@
             }
           }
         },
+        // 記錄位置
         record: function (currentBlock, blockX, blockY) {
           var currentPosition;
           (blockY == 1 ? currentPosition = blockX : currentPosition = (blockY - 1) * cols + blockX);
 
           // 存入 node
           blocksNode[currentBlock].position = currentPosition;
+          blocksNode[currentBlock].positionX = blockX;
+          blocksNode[currentBlock].positionY = blockY;
           console.log("current " + currentPosition + ": " + blockX + ", " + blockY);
         },
+        // 方塊停止
         stop: function(currentBlock, blockX, blockY){
           // 增加 is-locked 樣式
           lock(currentBlock, blockY);
@@ -179,15 +184,19 @@
           this.record(currentBlock, blockX, blockY);
           canvasBlocked.push(finalXY);
 
-          // 新增下一個方塊
-          // this.add();
+          // 新增下一個方塊(暫時以最多方塊數量為限)
+          if (canvasBlocked.length < cols * rows) {
+            this.add();
+          }
         },
+        // 右移
         moveRight: function(){
           // 調整位置
           relocateX(currentBlock, "R", blockX, blockY);
           console.log("right, new X ", blockX);
           console.log(blocksNode);
         },
+        // 左移
         moveLeft: function(){
           // 調整位置
           relocateX(currentBlock, "L", blockX, blockY);
