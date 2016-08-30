@@ -18,7 +18,137 @@
 
     <script>
 
+    // cube
+    function Cube(x, mx, y, my, size) {
+        this.x = parseInt(x, 10) || 0;
+        this.mx = parseInt(mx, 10) || 0;
+        this.y = parseInt(y, 10) || 0;
+        this.my = parseInt(my, 10) || 0;
+        this.size = parseInt(size, 10) || 0;
+        this.$dom = $('<div class="block">')
+    }
 
+    Cube.prototype = {
+        isFixed: false,
+        redraw: function(){
+            if (this.isFixed) return;
+            this.$dom.css({
+                'top': (this.size*this.y)+'px',
+                'left': (this.size*this.x)+'px'
+            });
+
+            if (this.y == this.my-1) this.fixed();
+        },
+        down: function(cubes) {
+            if (this.isFixed) return;
+            var me = this, first = null;
+            cubes.forEach(function(c, i){
+                if (c.x == me.x) {
+                    if (!first || first.y > c.y) {
+                        first = c;
+                    }
+                }
+            });
+
+            this.y = (first) ? first.y - 1 : this.my -1;
+        },
+        right: function() {
+            if (this.isFixed) return;
+            var x = this.x+1;
+            if (x > this.mx -1) x = this.mx -1;
+            this.x = x;
+        },
+        left: function(){
+            if (this.isFixed) return;
+            var x = this.x-1;
+            if (x < 0) x = 0;
+            this.x = x;
+        },
+        fixed: function(){
+            this.isFixed = true;
+            this.$dom.addClass('block.is-locked');
+        }
+    };
+
+    // main obj
+    function Tetris(cols, rows, $box) {
+        this.size = 50;
+        this.cols = parseInt(cols, 10) || 0;
+        this.rows = parseInt(rows, 10) || 0;
+
+        this.$box = $box.css({
+            'width': (cols*this.size) + 'px',
+            'height': (rows*this.size) + 'px'
+        });
+    }
+
+    Tetris.prototype = {
+        $box: null,
+        cubes: [],
+        cols:0,
+        rows:0,
+        size: 0,
+        speed: 0,
+        step: 0,
+        currentCube: null,
+        redraw: function(){
+            if ( ! this.currentCube) {
+                this.currentCube = new Cube((this.cols/2)>>0, this.cols, -1, this.rows, this.size);
+                this.$box.append(this.currentCube.$dom);
+            }
+            var cube = this.currentCube
+            cube.y++;
+            cube.redraw();
+            this.cubes.forEach(function(c, i){
+                if (cube.x == c.x) {
+                    if (cube.y == c.y - 1) {
+                        cube.fixed();
+                        return
+                    }
+                }
+            });
+
+            if (cube.isFixed) {
+                this.currentCube = null;
+                this.cubes.push(cube)
+            }
+        },
+        left: function(){ this.currentCube && this.currentCube.left(); },
+        right: function(){ this.currentCube && this.currentCube.right(); },
+        down: function(){ 
+            var cube = this.currentCube;
+            cube && cube.down(this.cubes); 
+            this.currentCube = null;
+            this.cubes.push(cube);
+            cube.redraw();
+        },
+        play: function(n) {
+
+            n = parseFloat(n)
+            if ( ! isNaN(n) && n > 0) {
+                this.speed = (60/n)>>0;
+            }
+            
+            if (this.step <= 0) {
+                this.step = this.speed;
+                this.redraw()
+            }
+
+            this.step--;
+
+            var me = this;
+            self.requestAnimationFrame(function(t){ me.play(); })
+        },
+
+
+    }
+
+    var t = new Tetris(10, 10, $('#canvas'))
+    $('#btn-left').on('click', function(){t.left();})
+    $('#btn-right').on('click', function(){t.right();})
+    $('#canvas').on('click', function(){t.down();})
+    t.play(3)
+/*
       var rows = 5;                // 列數
       var cols = 5;                // 行數
       var blockSize = 50;          // 方塊尺寸 px
@@ -211,7 +341,7 @@
 
       $('#btn-right').on('click', tetris.moveRight);
       $('#btn-left').on('click', tetris.moveLeft);
-
+*/
 
     </script>
 
