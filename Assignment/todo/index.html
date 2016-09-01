@@ -17,6 +17,15 @@
         <span class="isDone">Done</span>
       </div>
       <main id="main" class="main">
+        <div class="todoItem isOn">
+          <span>Demo item</span>
+          <div class="itemControllers">
+            <input type="checkbox" id="urg" value="urg" checked="">
+            <label for="urg" class="itemControllers-item urg"></label>
+            <input type="checkbox" id="done" value="done">
+            <label for="done" class="itemControllers-item done"></label>
+          </div>
+        </div>
         <div class="add">
           <input class="input-add" type="text" id="input-add">
           <button class="btn-add">Add</button>
@@ -27,13 +36,12 @@
     </div>
 
     <script>
-      $.getJSON( "todo.json", function( data ) {
+      $.getJSON( "todo.json", function(data) {
         var items = [];
-        $.each( data, function( type, item ) {
-          items.push( "<div class='todoItem " + type + "'><span>" + item + "</span></div>" );
+        $.each(data, function(index, d){
+            items.push("<div class='todoItem ", d.type, "'><span>",d.item, "</span></div>");
         });
         $( "<div/>", {
-          "class": "todoItems",
           html: items.join( "" )
         }).appendTo( "main" );
       });
