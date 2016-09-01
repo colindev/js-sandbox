@@ -13,9 +13,9 @@ Here is my sandbox for JavaScript.
  - Head First JavaScript (done!)
  - [You Don't Know JS Series](https://github.com/getify/You-Dont-Know-JS)
    - Up & Going (done!)
+   - Types & Grammar (on-going!)
    - Scope & Closures
    - this & Object Prototypes
-   - Types & Grammar (on-going!)
    - Async & Performance
    - ES6 & Beyond
  - [Jump Start JavaScript](https://www.sitepoint.com/premium/books/jump-start-javascript) (done!)

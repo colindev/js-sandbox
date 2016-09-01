@@ -18,8 +18,9 @@
 
     <script>
 
-    // cube
+    // cube mx 行數 my 列數
     function Cube(x, mx, y, my, size) {
+        // parseInt（數字字串，進位）
         this.x = parseInt(x, 10) || 0;
         this.mx = parseInt(mx, 10) || 0;
         this.y = parseInt(y, 10) || 0;
@@ -29,18 +30,28 @@
     }
 
     Cube.prototype = {
+        // 預設不鎖定
         isFixed: false,
+        // 重設位置
         redraw: function(){
+            // 若處於鎖定狀態跳出
             if (this.isFixed) return;
+            // 調整 DOM 位置
             this.$dom.css({
                 'top': (this.size*this.y)+'px',
                 'left': (this.size*this.x)+'px'
             });
 
+            // 若 y 為畫面高度，則鎖定
             if (this.y == this.my-1) this.fixed();
+            // console.log("this.y:" + this.y + "this.my" + this.my);
+
         },
+        // 方塊下降
         down: function(cubes) {
+            // 若處於鎖定狀態跳出
             if (this.isFixed) return;
+
             var me = this, first = null;
             cubes.forEach(function(c, i){
                 if (c.x == me.x) {
@@ -49,33 +60,46 @@
                     }
                 }
             });
+            console.log(cubes);
 
             this.y = (first) ? first.y - 1 : this.my -1;
         },
+        // 方塊右移
         right: function() {
+            // 若處於鎖定狀態跳出
             if (this.isFixed) return;
+            // 右移 x+1
             var x = this.x+1;
+            // 若 x 超出邊界則不 +1
             if (x > this.mx -1) x = this.mx -1;
             this.x = x;
         },
+        // 方塊左移
         left: function(){
+            // 若處於鎖定狀態跳出
             if (this.isFixed) return;
+            // 左移 x-1
             var x = this.x-1;
+            // 若 x 超出邊界則為 0
             if (x < 0) x = 0;
             this.x = x;
         },
+        // 方塊鎖定
         fixed: function(){
             this.isFixed = true;
+            // 方塊鎖定時增加 is-locked 樣式
             this.$dom.addClass('is-locked');
         }
     };
 
     // main obj
     function Tetris(cols, rows, $box) {
+        // 方塊尺寸
         this.size = 50;
         this.cols = parseInt(cols, 10) || 0;
         this.rows = parseInt(rows, 10) || 0;
 
+        // 調整 DOM 方塊尺寸
         this.$box = $box.css({
             'width': (cols*this.size) + 'px',
             'height': (rows*this.size) + 'px'
@@ -83,22 +107,29 @@
     }
 
     Tetris.prototype = {
-        $box: null,
-        cubes: [],
-        cols:0,
-        rows:0,
-        size: 0,
-        speed: 0,
-        step: 0,
-        currentCube: null,
+        $box: null,         //
+        cubes: [],          // 方塊們
+        cols:0,             // 行數
+        rows:0,             // 列數
+        size: 0,            // 尺寸
+        speed: 0,           // 速度
+        step: 0,            // 移動步數？
+        currentCube: null,  // 移動中方塊
+        // 建立新方塊
         redraw: function(){
+            // 若無移動中方塊
             if ( ! this.currentCube) {
+                // 建立新方塊
                 this.currentCube = new Cube((this.cols/2)>>0, this.cols, -1, this.rows, this.size);
                 this.$box.append(this.currentCube.$dom);
             }
+            // 指定移動中方塊
             var cube = this.currentCube
+            // 下降
             cube.y++;
+            // 重設位置
             cube.redraw();
+            // 判定鎖定時機
             this.cubes.forEach(function(c, i){
                 if (cube.x == c.x) {
                     if (cube.y == c.y - 1) {
@@ -108,27 +139,37 @@
                 }
             });
 
+            // 若移動中方塊為鎖定狀態，清空並儲存cubes
             if (cube.isFixed) {
                 this.currentCube = null;
                 this.cubes.push(cube)
             }
         },
+        // 向左移動
         left: function(){ this.currentCube && this.currentCube.left(); },
+        // 向右移動
         right: function(){ this.currentCube && this.currentCube.right(); },
-        down: function(){ 
+        // 向下降
+        down: function(){
             var cube = this.currentCube;
-            cube && cube.down(this.cubes); 
+            // 判斷是否觸底或下方已佔位
+            cube && cube.down(this.cubes);
+            // 清空現有方塊
             this.currentCube = null;
+            // 儲存cube
             this.cubes.push(cube);
+            // 新建方塊
             cube.redraw();
         },
+        // 啟動（速度）
         play: function(n) {
-
+            // parseFloat 取得數值
             n = parseFloat(n)
+            // 若 n 不為數字，則速度為預設
             if ( ! isNaN(n) && n > 0) {
                 this.speed = (60/n)>>0;
             }
-            
+
             if (this.step <= 0) {
                 this.step = this.speed;
                 this.redraw()
@@ -137,17 +178,26 @@
             this.step--;
 
             var me = this;
+            // requestAnimationFrame 產生動畫、呼叫特定函數刷新動畫
             self.requestAnimationFrame(function(t){ me.play(); })
         },
 
 
     }
 
+    // 建立新 10 x 10 畫面
     var t = new Tetris(10, 10, $('#canvas'))
+
+    // 左右按鈕
     $('#btn-left').on('click', function(){t.left();})
     $('#btn-right').on('click', function(){t.right();})
+
+    // 點擊畫面時加速掉落
     $('#canvas').on('click', function(){t.down();})
-    t.play(3)
+
+    // 速度
+    t.play(2)
+    console.log(t);
 /*
       var rows = 5;                // 列數
       var cols = 5;                // 行數
