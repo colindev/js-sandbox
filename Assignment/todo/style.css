@@ -1,4 +1,3 @@
-@charset "UTF-8";
 body {
   font-family: Arial;
   font-size: 16px;
@@ -22,14 +21,15 @@ button:active {
 
 .main {
   width: 500px;
-  height: 400px;
-  background-color: #fafafa; }
+  height: 470px;
+  background-color: #FAFAFA;
+  position: relative; }
 
 .add {
   width: 500px;
   height: 50px;
-  background-color: rgba(255, 255, 255, 0.3);
-  position: relative; }
+  position: absolute;
+  bottom: 0; }
   .add::before {
     content: '+';
     display: inline-block;
@@ -41,24 +41,27 @@ button:active {
     height: 50px;
     top: 0;
     left: 0;
-    background-color: #F5F5F5; }
+    background-color: #EEEEEE; }
 
 .input-add {
   width: 400px;
   height: 50px;
-  background-color: transparent;
+  background-color: #F5F5F5;
   margin: 0;
   padding: 0 8px;
   box-sizing: border-box;
   position: absolute;
   top: 0;
   right: 50px;
-  font-size: 20px; }
+  font-size: 20px;
+  color: #424242; }
+  .input-add:focus {
+    background-color: #EEEEEE; }
 
 .btn-add {
   width: 50px;
   height: 50px;
-  background-color: #F5F5F5;
+  background-color: #EEEEEE;
   margin: 0;
   position: absolute;
   top: 0;
@@ -68,40 +71,41 @@ button:active {
   .btn-add:hover,
   .input-add:focus ~ .btn-add {
     color: #9E9E9E;
-    background-color: #EEEEEE; }
+    background-color: #E0E0E0; }
 
 .todoItem {
-  width: 450px;
+  width: 500px;
   height: 50px;
   text-align: left;
   position: relative; }
   .todoItem::before {
-    content: '•';
+    content: '';
     display: inline-block;
     position: absolute;
-    color: #BDBDBD;
     font-size: 40px;
     line-height: 50px;
-    width: 50px;
+    width: 8px;
     height: 50px;
     top: 0;
     left: 0;
     text-align: center; }
-  .todoItem.red::before {
-    color: #F44336; }
-  .todoItem.green::before {
-    color: #8BC34A; }
-  .todoItem.blue::before {
-    color: #2196F3; }
+  .todoItem.isUrg::before {
+    background-color: #F44336; }
+  .todoItem.isOn::before {
+    background-color: #2196F3; }
+  .todoItem.isDone::before {
+    background-color: #E0E0E0; }
   .todoItem span {
     text-align: left;
-    position: absolute;
-    left: 50px;
-    line-height: 50px; }
+    line-height: 50px;
+    padding: 0 8px 0 20px; }
+  .todoItem.isDone span {
+    color: #E0E0E0;
+    text-decoration: line-through; }
 
 .tags {
   width: 500px;
-  height: 100px;
+  height: 30px;
   padding: 10px;
   text-align: center; }
   .tags span {
@@ -114,14 +118,14 @@ button:active {
     background-color: #E0E0E0;
     color: #424242;
     border-radius: 15px; }
-    .tags span.red {
+    .tags span.isUrg {
       background-color: #F44336;
       color: #fff; }
-    .tags span.green {
-      background-color: #8BC34A;
-      color: #fff; }
-    .tags span.blue {
+    .tags span.isOn {
       background-color: #2196F3;
+      color: #fff; }
+    .tags span.isDone {
+      background-color: #E0E0E0;
       color: #fff; }
 
 h1 {

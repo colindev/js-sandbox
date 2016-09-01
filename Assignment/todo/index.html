@@ -11,35 +11,32 @@
     <div class="wrapper">
       <h1>TODO List</h1>
       <p id="txt-des"></p>
+      <div class="tags">
+        <span class="isUrg">Urgent</span>
+        <span class="isOn">On Going</span>
+        <span class="isDone">Done</span>
+      </div>
       <main id="main" class="main">
         <div class="add">
           <input class="input-add" type="text" id="input-add">
           <button class="btn-add">Add</button>
         </div>
 
-        <div class="todoItem red">
-          <span>Todo Item 1</span>
-        </div>
-
-        <div class="todoItem blue">
-          <span>Todo Item 1</span>
-        </div>
-
-        <div class="todoItem green">
-          <span>Todo Item 1</span>
-        </div>
-
       </main>
-      <div id="tags" class="tags">
-        <span class="red">urgent</span>
-        <span class="green">delay</span>
-        <span class="blue">hold</span>
-      </div>
 
     </div>
 
     <script>
-
+      $.getJSON( "todo.json", function( data ) {
+        var items = [];
+        $.each( data, function( type, item ) {
+          items.push( "<div class='todoItem " + type + "'><span>" + item + "</span></div>" );
+        });
+        $( "<div/>", {
+          "class": "todoItems",
+          html: items.join( "" )
+        }).appendTo( "main" );
+      });
 
     </script>
 

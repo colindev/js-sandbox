@@ -2,10 +2,25 @@
 
 $list-hight: 50px
 
+$c-g50: #FAFAFA
+$c-g100: #F5F5F5
+$c-g200: #EEEEEE
+$c-g300: #E0E0E0
+$c-g400: #BDBDBD
+$c-g500: #9E9E9E
+$c-g600: #757575
+$c-g700: #616161
+$c-g800: #424242
+$c-g900: #212121
+
+$c-red: #F44336
+$c-blue: #2196F3
+
+
 body
   font-family: Arial
   font-size: 16px
-  color: #424242
+  color: $c-g800
 
 button
   cursor: pointer
@@ -25,31 +40,32 @@ button:active
 
 .main
   width: 500px
-  height: 400px
-  background-color: #fafafa
+  height: 470px
+  background-color: $c-g50
+  position: relative
 
 .add
   width: 500px
   height: $list-hight
-  background-color: rgba(255,255,255,.3)
-  position: relative
+  position: absolute
+  bottom: 0
   &::before
     content: '+'
     display: inline-block
     position: absolute
-    color: #BDBDBD
+    color: $c-g400
     font-size: 40px
     line-height: $list-hight
     width: $list-hight
     height: $list-hight
     top: 0
     left: 0
-    background-color: #F5F5F5
+    background-color: $c-g200
 
 .input-add
   width: 400px
   height: $list-hight
-  background-color: transparent
+  background-color: $c-g100
   margin: 0
   padding: 0 8px
   box-sizing: border-box
@@ -57,54 +73,58 @@ button:active
   top: 0
   right: $list-hight
   font-size: 20px
+  color: $c-g800
+  &:focus
+    background-color: $c-g200
 
 .btn-add
   width: 50px
   height: 50px
-  background-color: #F5F5F5
+  background-color: $c-g200
   margin: 0
   position: absolute
   top: 0
   right: 0
   font-size: 16px
-  color: #BDBDBD
+  color: $c-g400
   &:hover,
   .input-add:focus ~ &
-    color: #9E9E9E
-    background-color: #EEEEEE
+    color: $c-g500
+    background-color: $c-g300
 
 .todoItem
-  width: 450px
+  width: 500px
   height: $list-hight
   text-align: left
   position: relative
   &::before
-    content: '•'
+    content: ''
     display: inline-block
     position: absolute
-    color: #BDBDBD
     font-size: 40px
     line-height: $list-hight
-    width: $list-hight
+    width: 8px
     height: $list-hight
     top: 0
     left: 0
     text-align: center
-  &.red::before
-    color: #F44336
-  &.green::before
-    color: #8BC34A
-  &.blue::before
-    color: #2196F3
+  &.isUrg::before
+    background-color: $c-red
+  &.isOn::before
+    background-color: $c-blue
+  &.isDone::before
+    background-color: $c-g300
   & span
     text-align: left
-    position: absolute
-    left: $list-hight
     line-height: $list-hight
+    padding: 0 8px 0 20px
+  &.isDone span
+    color: $c-g300
+    text-decoration: line-through
 
 .tags
   width: 500px
-  height: 100px
+  height: 30px
   padding: 10px
   text-align: center
   & span
@@ -114,17 +134,17 @@ button:active
     margin-right: 6px
     height: 18px
     display: inline-block
-    background-color: #E0E0E0
-    color: #424242
+    background-color: $c-g300
+    color: $c-g800
     border-radius: 15px
-    &.red
-      background-color: #F44336
+    &.isUrg
+      background-color: $c-red
       color: #fff
-    &.green
-      background-color: #8BC34A
+    &.isOn
+      background-color: $c-blue
       color: #fff
-    &.blue
-      background-color: #2196F3
+    &.isDone
+      background-color: $c-g300
       color: #fff
 
 h1
