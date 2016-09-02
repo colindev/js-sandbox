@@ -19,7 +19,7 @@ $c-blue: #2196F3
 
 body
   font-family: Arial
-  font-size: 16px
+  font-size: 11px
   color: $c-g800
 
 button
@@ -97,6 +97,10 @@ button:active
   height: $list-hight
   text-align: left
   position: relative
+  &:hover
+    background-color: $c-g100
+    & .itemControllers
+      display: block
   &::before
     content: ''
     display: inline-block
@@ -110,6 +114,9 @@ button:active
     text-align: center
   &.isUrg::before
     background-color: $c-red
+  &.isUrg .itemControllers-item.urg
+    border-color: $c-red
+    background-color: #EF5350
   &.isOn::before
     background-color: $c-blue
   &.isDone::before
@@ -122,9 +129,10 @@ button:active
     color: $c-g300
     text-decoration: line-through
   .itemControllers
+    display: none
     position: absolute
     right: 10px
-    top: 12px
+    top: 15px
     input
       display: none
     .itemControllers-item
@@ -139,17 +147,12 @@ button:active
         border-color: $c-red
       &:hover.urg
         border-color: $c-red
-        background-color: $c-red
-      &.on
-        border-color: $c-g300
-      &:hover.on
-        border-color: $c-blue
-        background-color: $c-blue
+        background-color: #EF5350
       &.done
         border-color: $c-g300
       &:hover.done
         border-color: $c-g300
-        background-color: $c-g300
+        background-color: $c-g200
 
 .tags
   width: 500px
