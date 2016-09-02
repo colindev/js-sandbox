@@ -44,14 +44,13 @@
 
             // 若 y 為畫面高度，則鎖定
             if (this.y == this.my-1) this.fixed();
-            // console.log("this.y:" + this.y + "this.my" + this.my);
 
         },
         // 方塊下降
         down: function(cubes) {
             // 若處於鎖定狀態跳出
             if (this.isFixed) return;
-
+            // 判斷佔位
             var me = this, first = null;
             cubes.forEach(function(c, i){
                 if (c.x == me.x) {
@@ -60,7 +59,6 @@
                     }
                 }
             });
-            console.log(cubes);
 
             this.y = (first) ? first.y - 1 : this.my -1;
         },
@@ -186,7 +184,7 @@
     }
 
     // 建立新 10 x 10 畫面
-    var t = new Tetris(10, 10, $('#canvas'))
+    var t = new Tetris(5, 5, $('#canvas'))
 
     // 左右按鈕
     $('#btn-left').on('click', function(){t.left();})
@@ -197,7 +195,6 @@
 
     // 速度
     t.play(2)
-    console.log(t);
 /*
       var rows = 5;                // 列數
       var cols = 5;                // 行數
