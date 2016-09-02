@@ -1,12 +1,12 @@
 #JS sandbox
 
-From a Designer to a Front-End Newbie.
+From a Designer to a Front-End Newbie.  
 Here is my sandbox for JavaScript.
 
-## Activities
+## Projects
  - [Lotto Draw](https://github.com/estherj-hsu/js-sandbox/tree/master/Projects/LottoDraw) (done!)
- - Tetris (on-going!)
- - Todo list (on-going!)
+ - [Tetris](https://github.com/estherj-hsu/js-sandbox/tree/master/Projects/Tetris) (on-going!)
+ - [Todo list](https://github.com/estherj-hsu/js-sandbox/tree/master/Projects/todo) (on-going!)
  - Personal bookshelf
 
 ## Books
