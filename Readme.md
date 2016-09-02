@@ -20,5 +20,7 @@ Here is my sandbox for JavaScript.
    - ES6 & Beyond
  - [Jump Start JavaScript](https://www.sitepoint.com/premium/books/jump-start-javascript) (done!)
  - [jQuery: Novice to Ninja](https://www.sitepoint.com/premium/books/jquery-novice-to-ninja) (on-going!)
+ - Learning JavaScript
+ - JavaScript: The Definitive Guide, 6E
  - [Jump Start nodejs](https://www.sitepoint.com/premium/books/jump-start-node-js)
  - [ECMAScript 2015: A SitePoint Anthology](https://www.sitepoint.com/premium/books/ecmascript-2015-a-sitepoint-anthology)
