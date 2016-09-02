@@ -4,7 +4,7 @@ From a Designer to a Front-End Newbie.
 Here is my sandbox for JavaScript.
 
 ## Activities
- - [Lucky Draw](https://github.com/estherj-hsu/js-sandbox/tree/master/Assignment/JS%20OOP) (done!)
+ - [Lotto Draw](https://github.com/estherj-hsu/js-sandbox/tree/master/Projects/LottoDraw) (done!)
  - Tetris (on-going!)
  - Todo list (on-going!)
  - Personal bookshelf
