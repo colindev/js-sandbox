@@ -1,5 +1,6 @@
-JumpStartNodeJS/authentication/node_modules/
-NodeHero/node_modules/
-NodeJS/node_modules/
+node_modules/
+NodeHero/
+NodeJS/
 .DS_Store
 temp
+react/
