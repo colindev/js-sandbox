@@ -117,10 +117,13 @@
         right: function(){ this.currentCube && this.currentCube.right(); },
         down: function(){ 
             var cube = this.currentCube;
-            cube && cube.down(this.cubes); 
+            // 裡面三句都會把cube 當物件操作,所以都先要確定該方塊存在
+            if (cube) {
+              cube.down(this.cubes); 
+              this.cubes.push(cube);
+              cube.redraw();
+            }
             this.currentCube = null;
-            this.cubes.push(cube);
-            cube.redraw();
         },
         play: function(n) {
 
