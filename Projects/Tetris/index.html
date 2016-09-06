@@ -42,17 +42,20 @@
                 'left': (this.size*this.x)+'px'
             });
 
-            // 若 y 為畫面高度，則鎖定
+            // 若 y 為畫面底部，則鎖定
             if (this.y == this.my-1) this.fixed();
 
         },
         // 方塊下降
+        // 傳入畫面所有方快陣列
         down: function(cubes) {
             // 若處於鎖定狀態跳出
             if (this.isFixed) return;
             // 判斷佔位
             var me = this, first = null;
+            // 調用 Array.prototype.forEach
             cubes.forEach(function(c, i){
+                // 檢查 X 坐標同一直線的方塊
                 if (c.x == me.x) {
                     if (!first || first.y > c.y) {
                         first = c;
@@ -68,7 +71,7 @@
             if (this.isFixed) return;
             // 右移 x+1
             var x = this.x+1;
-            // 若 x 超出邊界則不 +1
+            // 若 x 超出邊界則採用邊界值
             if (x > this.mx -1) x = this.mx -1;
             this.x = x;
         },
@@ -156,7 +159,7 @@
             this.currentCube = null;
             // 儲存cube
             this.cubes.push(cube);
-            // 新建方塊
+            // 最後重繪
             cube.redraw();
         },
         // 啟動（速度）
@@ -184,7 +187,7 @@
     }
 
     // 建立新 10 x 10 畫面
-    var t = new Tetris(5, 5, $('#canvas'))
+    var t = new Tetris(10, 10, $('#canvas'))
 
     // 左右按鈕
     $('#btn-left').on('click', function(){t.left();})
