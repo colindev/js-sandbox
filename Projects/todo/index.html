@@ -36,6 +36,8 @@
           </div>
         </div>
 
+        <div id="todoItems" class="todoItems"></div>
+
         <div class="add">
           <input class="input-add" type="text" id="input-add">
           <button class="btn-add">Add</button>
@@ -46,15 +48,17 @@
     </div>
 
     <script>
+
+      // 導入 JSON
       $.getJSON( "todo.json", function(data) {
         var items = [];
         $.each(data, function(index, d){
             items.push("<div class='todoItem ", d.type, "'><span>",d.item, "</span></div>");
         });
-        $( "<div/>", {
-          html: items.join( "" )
-        }).appendTo( "main" );
+        $("#todoItems").html(items.join(''));
+
       });
+
 
     </script>
 
