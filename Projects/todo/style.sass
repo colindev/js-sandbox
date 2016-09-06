@@ -1,0 +1,191 @@
+//compileCompressed: style.css
+
+$list-hight: 50px
+
+$c-g50: #FAFAFA
+$c-g100: #F5F5F5
+$c-g200: #EEEEEE
+$c-g300: #E0E0E0
+$c-g400: #BDBDBD
+$c-g500: #9E9E9E
+$c-g600: #757575
+$c-g700: #616161
+$c-g800: #424242
+$c-g900: #212121
+
+$c-red: #F44336
+$c-blue: #2196F3
+
+
+body
+  font-family: Arial
+  font-size: 11px
+  color: $c-g800
+
+button
+  cursor: pointer
+
+input,
+input:focus,
+button,
+button:active
+  border: 0
+  outline: 0
+
+.wrapper
+  margin: calc(50vh - 265px) auto 0
+  width: 500px
+  height: 530px
+  text-align: center
+
+.main
+  width: 500px
+  height: 470px
+  background-color: $c-g50
+  position: relative
+
+.todoItems
+  width: 500px
+  height: 370px
+  overflow-y: auto
+
+.add
+  width: 500px
+  height: $list-hight
+  position: absolute
+  bottom: 0
+  &::before
+    content: '+'
+    display: inline-block
+    position: absolute
+    color: $c-g400
+    font-size: 40px
+    line-height: $list-hight
+    width: $list-hight
+    height: $list-hight
+    top: 0
+    left: 0
+    background-color: $c-g200
+
+.input-add
+  width: 400px
+  height: $list-hight
+  background-color: $c-g100
+  margin: 0
+  padding: 0 8px
+  box-sizing: border-box
+  position: absolute
+  top: 0
+  right: $list-hight
+  font-size: 20px
+  color: $c-g800
+  &:focus
+    background-color: $c-g200
+
+.btn-add
+  width: 50px
+  height: 50px
+  background-color: $c-g200
+  margin: 0
+  position: absolute
+  top: 0
+  right: 0
+  font-size: 16px
+  color: $c-g400
+  &:hover,
+  .input-add:focus ~ &
+    color: $c-g500
+    background-color: $c-g300
+
+.todoItem
+  width: 500px
+  height: $list-hight
+  text-align: left
+  position: relative
+  &:hover
+    background-color: $c-g100
+    & .itemControllers
+      display: block
+  &::before
+    content: ''
+    display: inline-block
+    position: absolute
+    font-size: 40px
+    line-height: $list-hight
+    width: 8px
+    height: $list-hight
+    top: 0
+    left: 0
+    text-align: center
+  &.isUrg::before
+    background-color: $c-red
+  &.isUrg .itemControllers-item.urg
+    border-color: $c-red
+    background-color: #EF5350
+  &.isOn::before
+    background-color: $c-blue
+  &.isDone::before
+    background-color: $c-g300
+  & span
+    text-align: left
+    line-height: $list-hight
+    padding: 0 8px 0 20px
+  &.isDone span
+    color: $c-g300
+    text-decoration: line-through
+  .itemControllers
+    display: none
+    position: absolute
+    right: 10px
+    top: 15px
+    input
+      display: none
+    .itemControllers-item
+      height: 20px
+      width: 20px
+      border-radius: 50%
+      display: inline-block
+      margin-right: 8px
+      border: 4px solid $c-g300
+      box-sizing: border-box
+      &.urg
+        border-color: $c-red
+      &:hover.urg
+        border-color: $c-red
+        background-color: #EF5350
+      &.done
+        border-color: $c-g300
+      &:hover.done
+        border-color: $c-g300
+        background-color: $c-g200
+
+.tags
+  width: 500px
+  height: 30px
+  padding: 10px
+  text-align: center
+  & span
+    padding: 4px 16px
+    font-size: 13px
+    line-height: 18px
+    margin-right: 6px
+    height: 18px
+    display: inline-block
+    background-color: $c-g300
+    color: $c-g800
+    border-radius: 15px
+    &.isUrg
+      background-color: $c-red
+      color: #fff
+    &.isOn
+      background-color: $c-blue
+      color: #fff
+    &.isDone
+      background-color: $c-g300
+      color: #fff
+
+h1
+  font-size: 26px
+  height: 30px
+  line-height: 30px
+  text-align: center

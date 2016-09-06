@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <title>TODO List</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <h1>TODO List</h1>
+      <p id="txt-des"></p>
+      <div class="tags">
+        <span class="isUrg">Urgent</span>
+        <span class="isOn">On Going</span>
+        <span class="isDone">Done</span>
+      </div>
+      <main id="main" class="main">
+        <div class="todoItem isUrg">
+          <span>Demo item Urgent</span>
+          <div class="itemControllers">
+            <input type="checkbox" id="urg" value="urg" checked="">
+            <label for="urg" class="itemControllers-item urg"></label>
+            <input type="checkbox" id="done" value="done">
+            <label for="done" class="itemControllers-item done"></label>
+          </div>
+        </div>
+        <div class="todoItem isOn">
+          <span>Demo item On-Going</span>
+          <div class="itemControllers">
+            <input type="checkbox" id="urg" value="urg">
+            <label for="urg" class="itemControllers-item urg"></label>
+            <input type="checkbox" id="done" value="done">
+            <label for="done" class="itemControllers-item done"></label>
+          </div>
+        </div>
+
+        <div id="todoItems" class="todoItems"></div>
+
+        <div class="add">
+          <input class="input-add" type="text" id="input-add">
+          <button class="btn-add">Add</button>
+        </div>
+
+      </main>
+
+    </div>
+
+    <script>
+
+      // 導入 JSON
+      $.getJSON( "todo.json", function(data) {
+        var items = [];
+        $.each(data, function(index, d){
+            items.push("<div class='todoItem ", d.type, "'><span>",d.item, "</span></div>");
+        });
+        $("#todoItems").html(items.join(''));
+
+      });
+
+
+    </script>
+
+  </body>
+</html>
